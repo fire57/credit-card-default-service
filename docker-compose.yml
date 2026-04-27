@@ -1,0 +1,22 @@
+services:
+  credit-default-api:
+    build: .
+    container_name: credit-default-api
+    ports:
+      - "5000:5000"
+    environment:
+      LOG_LEVEL: INFO
+      MODEL_DIR: /app/models
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  log-viewer:
+    image: nginx:1.27-alpine
+    container_name: credit-default-log-viewer
+    ports:
+      - "8080:80"
+    profiles:
+      - monitoring-demo
