@@ -1,19 +1,16 @@
-# Credit Card Default Prediction Service
+# Итоговый проект «Внедрение моделей машинного обучения»
 
-Учебный production-like проект для прогнозирования дефолта по кредитным картам. Сервис обучает две версии модели на датасете `UCI_Credit_Card.csv`, сохраняет их в `joblib`, поднимает Flask API и демонстрирует основу A/B-тестирования моделей.
+Итоговый проект по дисциплине «Внедрение моделей машинного обучения» для прогнозирования по кредитным картам. Сервис обучает две версии модели на датасете `UCI_Credit_Card.csv`, сохраняет их в `joblib`, поднимает Flask API и демонстрирует основу A/B-тестирования моделей.
 
 ## Цель проекта
 
 Разработать и внедрить ML-сервис для бинарной классификации клиентов кредитных карт:
-
-- `0` - дефолт в следующем месяце не ожидается;
-- `1` - дефолт в следующем месяце ожидается.
-
-Домен: финансы / кредитный скоринг.
+`0` - дефолт в следующем месяце не ожидается;
+`1` - дефолт в следующем месяце ожидается.
 
 ## Структура репозитория
 
-```text
+```
 credit-card-default-service/
 ├── app/                  # Flask API и загрузка моделей
 ├── data/raw/             # Исходный CSV-датасет
@@ -33,7 +30,7 @@ credit-card-default-service/
 
 Создайте и активируйте виртуальное окружение:
 
-```bash
+```
 python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
@@ -42,13 +39,13 @@ pip install -r requirements.txt
 
 Обучите модели:
 
-```bash
+```
 python -m src.train_model
 ```
 
 Запустите API:
 
-```bash
+```
 python -m app.api
 ```
 
@@ -58,13 +55,13 @@ python -m app.api
 
 Health-check:
 
-```bash
+```
 curl http://localhost:5000/health
 ```
 
 Пример ответа:
 
-```json
+```
 {
   "loaded_models": ["v1", "v2"],
   "service": "credit-card-default-service",
@@ -74,7 +71,7 @@ curl http://localhost:5000/health
 
 Предсказание с явным выбором модели:
 
-```bash
+```
 curl -X POST http://localhost:5000/predict \
   -H "Content-Type: application/json" \
   -d '{
@@ -110,7 +107,7 @@ curl -X POST http://localhost:5000/predict \
 
 Пример ответа:
 
-```json
+```
 {
   "request_id": "demo-001",
   "prediction": 1,
@@ -121,9 +118,9 @@ curl -X POST http://localhost:5000/predict \
 }
 ```
 
-Для A/B-распределения не передавайте `model_version`. Если передать `ab_key`, сервис стабильно назначит клиента в одну из групп по хешу:
+Для A/B-распределения не передавайте `model_version`. Если передать `ab_key`, сервис стабильно назначит клиента в одну из групп:
 
-```bash
+```
 curl -X POST http://localhost:5000/predict \
   -H "Content-Type: application/json" \
   -d '{
