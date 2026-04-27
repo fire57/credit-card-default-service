@@ -29,6 +29,7 @@
 credit-card-default-service/
 ├── app/                  # Flask API и загрузка моделей
 ├── data/raw/             # Исходный датасет
+├── demo                  # Скриншоты из Postman для демонстрации             
 ├── models/               # Обученные модели и метрики
 ├── src/                  # Код обучения и подготовки данных
 ├── tests/                # Тесты API
